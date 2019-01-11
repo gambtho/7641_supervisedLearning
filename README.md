@@ -1,18 +1,5 @@
 # 7641_supervisedLearning
 
-Numbers
--------
-
-The assignment is worth 15% of your final grade.
-
-Why?
-----
-
-The purpose of this project is to explore some techniques in supervised learning. It is important to realize that understanding an algorithm or technique requires understanding how it behaves under a variety of circumstances. As such, you will be asked to "implement" some simple learning algorithms (for sufficiently small values of implement, meaning I don't really want you to implement anything at all), and to compare their performance.
-
-You may program in any language that you wish (we do prefer broadly-used or revered languages like java, matlab, python, Lisp, R, or even C++; let us know beforehand if you're going to use something else). In any case *it is your responsibility* to make sure that the code can run on the standard CoC linux boxes. Re-read that last sentence. Next, ask yourself what it could possibly mean in practice.  Well, in practice, it means that if a TA needs to recreate your experiments, it will be possible (as detailed below) and if it isn't possible because you used some obscure language you made up based on HTML 2.0, well, that's just not going to work out.  Some of you who have been out of school for a long time and/or are used to assignments where you are told exactly what to do will fret about this requirement and try to infer more than is there. Don't. Use standard packages or languages and you'll never have to even figure out how to log into any CoC machine. (You can write to the TSO, [https://support.cc.gatech.edu/, (Links to an external site.)Links to an external site.](https://support.cc.gatech.edu/,) to get access)
-
-***Read everything below carefully!***
 
 The Problems Given to You
 -------------------------
@@ -62,12 +49,5 @@ Grading Criteria
 
 You are being graded on your analysis more than anything else. Roughly speaking, implementing everything and getting it to run is worth maybe 0% of the grade on this assignment (I know you don't believe me, but in fact, steal the code; I not only don't care, I am encouraging you to use one of the many packages available both from the resources page and on the web). Of course, analysis without proof of working code makes the analysis suspect.
 
-The key thing is that your explanations should be both thorough and concise. Imagine you are writing a paper for the major conference in your field the year you will be graduating and you need to impress all those folks who will be deciding whether to interview you later. You don't want them to think you're shallow do you? Or that you're incapable of coming up with interesting classification problems, right? And you surely don't want them to think that you make up for a lack of content by blathering on about irrelevant aspects of your work? Of course not.
+The key thing is that your explanations should be both thorough and concise. 
 
-Finally, I'd like to point out that I am very particular about the format of the assignments. Follow the directions carefully. Failure to turn in files with the proper naming scheme, or anything else that makes the graders' lives unduly hard is simply going to lead to an ignored assignment. I am remarkably inflexible about this. Also, there will be no late assignments accepted, so start now. Have fun. One day you'll look back on this and smile. There may be tears, but they will be tears of joy.
-
-When your assignment is graded, you will receive feedback explaining your errors (and your successes!) in some level of detail. This feedback is for your benefit, both on this assignment and for future assignments. It is considered a part of your learning goals to internalize this feedback. 
-
-If you are convinced that your grade is in error in light of the feedback, you may request a regrade within a week of the grade and feedback being returned to you. A regrade request is only valid if it includes an explanation of where the grader made an error. Send a private Piazza post to only the head TA. In the Summary add "[Request] Regrade <whichever assignment>". In the Details add sufficient explanation as to why you think the grader made a mistake. Be concrete and specific. We will not consider requests that do not follow these directions.
-
-It is important to note that because we consider your ability to internalize feedback a learning goal, we also assess it. This ability is considered 10% of each assignment. We default to assigning you full credit. If you request a regrade and do not receive at least 5 points as a result of the request, you will lose those 10 points.

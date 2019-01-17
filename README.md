@@ -16,14 +16,14 @@ http://archive.ics.uci.edu/ml/datasets/Phishing+Websites
 
 ### Miniconda
 
-    - Follow the instructions at https://conda.io/docs/user-guide/install/index.html
-    - Use miniconda to install all dependencies through `environment.yml` (instruction assumes conda is in your path)
+    Follow the instructions at https://conda.io/docs/user-guide/install/index.html
+    Use miniconda to install all dependencies through `environment.yml` (instruction assumes conda is in your path)
 
 ```
     conda env create -f environment.yml
 ```
 
-    - Activate the environment created by miniconda
+    Activate the environment created by miniconda
 
 ```
     source activate 7641_1

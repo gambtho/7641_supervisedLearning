@@ -9,8 +9,8 @@ Implementation for five learning algorithms. They are for:
 -   *k*-nearest neighbors
 
 Datasets used are
-http://archive.ics.uci.edu/ml/datasets/Dow+Jones+Index
-http://archive.ics.uci.edu/ml/datasets/Phishing+Websites
+- http://archive.ics.uci.edu/ml/datasets/Dow+Jones+Index
+- http://archive.ics.uci.edu/ml/datasets/Absenteeism+at+work
 
 ## Setup
 
@@ -33,7 +33,6 @@ http://archive.ics.uci.edu/ml/datasets/Phishing+Websites
 
 ```
 python main.py --help
-height has been deprecated.
 
 usage: main.py [-h] [-d {wine,credit_card}]
                {clean,knn,svm,ann,dt,boosting} ...
@@ -52,7 +51,6 @@ subcommands:
     ann                 Run neural networks
     dt                  Run decision trees
     boosting            Run boosting
-(cs-7641)
 
 ```
 

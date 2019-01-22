@@ -56,7 +56,7 @@ if __name__ == '__main__':
     if not args.command:
         parser.print_help()
 
-    strategy = args.command
+    strategy = args.strategy
     path = './results/{}/{}'.format(args.dataset, strategy)
     if not os.path.exists(path):
         log.info('Making results directory')

@@ -34,31 +34,29 @@ Datasets used are
 ```
 python main.py --help
 
-usage: main.py [-h] [-d {wine,credit_card}]
+usage: main.py [-h] [-d {cars,iris}]
                {clean,knn,svm,ann,dt,boosting} ...
 
 optional arguments:
   -h, --help            show this help message and exit
-  -d {wine,credit_card}, --dataset {wine,credit_card}
-                        Which dataset to run on
+  -d {cars, iris}, --dataset {cars,iris}
+                        Which data to analzye
 
-subcommands:
-  {clean,knn,svm,ann,dt,boosting}
-    clean               Clean the stats from original to final and show me
-                        information
-    knn                 Run k-nearest neighbors
-    svm                 Run Support Vector Machines
-    ann                 Run neural networks
-    dt                  Run decision trees
-    boosting            Run boosting
+strategies:
+  {nearest,vector,neural,tree,boost}
+    nearest                 K-Nearest Neighbors
+    vector                  Support Vector Machines
+    neural                  Neural Networks
+    tree                    Decision Tree
+    boost                   Boosting
 
 ```
 
 
 ## Example
 
-To run for example, the car problem with an ANN, use the following command.
+To run the car problem with a decision tree
 
 ```
-python main.py -d wine ann
+python main.py -d cars tree
 ```

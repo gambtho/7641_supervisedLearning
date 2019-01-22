@@ -1,6 +1,4 @@
-"""Module documentation goes here
-   and here
-   and ...
+"""Abstraction for analysis and models
 """
 
 import numpy as np
@@ -22,7 +20,9 @@ def balanced_accuracy(truth, pred):
     wts = compute_sample_weight('balanced', truth)
     return accuracy_score(truth, pred, sample_weight=wts)
 
+
 scorer = make_scorer(balanced_accuracy)
+
 
 class Experiment:
 

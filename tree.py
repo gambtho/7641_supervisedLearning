@@ -35,6 +35,7 @@ class Tree(Experiment):
     def run(self):
         '''Run the expierment, but we need to check the prine size
         '''
+        logger.info("in tree run")
         cv_best = super().run()
         logger.info('Writing out nodes')
         x_train, _, y_train, _ = self._split_train_test()

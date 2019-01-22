@@ -9,8 +9,8 @@ Implementation for five learning algorithms. They are for:
 -   *k*-nearest neighbors
 
 Datasets used are
-- http://archive.ics.uci.edu/ml/datasets/Dow+Jones+Index
-- http://archive.ics.uci.edu/ml/datasets/Absenteeism+at+work
+- https://archive.ics.uci.edu/ml/datasets/iris
+- https://archive.ics.uci.edu/ml/datasets/car+evaluation
 
 ## Setup
 
@@ -26,7 +26,7 @@ Datasets used are
 - Activate the environment created by miniconda
 
 ```
-    source activate 7641_1
+    source activate cs7641_1
 ```
 
 ## Usage
@@ -57,7 +57,7 @@ subcommands:
 
 ## Example
 
-To run for example, the wine problem with an ANN, use the following command.
+To run for example, the car problem with an ANN, use the following command.
 
 ```
 python main.py -d wine ann

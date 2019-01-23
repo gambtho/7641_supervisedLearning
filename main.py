@@ -43,23 +43,22 @@ def load_data(data='car'):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='main.py')
-    parser.add_argument('-d', '--data', help='data to evaluate', choices=['car', 'iris'],
+    parser.add_argument('-d', '--dataset', help='data to evaluate', choices=['car', 'iris'],
                         default='car')
     subparsers = parser.add_subparsers(title='strategy', dest='strategy')
-    knn_parser = subparsers.add_parser('nearest', help='K-Nearest Neighbors')
-    svm_parser = subparsers.add_parser('vector', help='Support Vector Machines')
-    ann_parser = subparsers.add_parser('neural', help='Neural Networks')
-    dt_parser = subparsers.add_parser('tree', help='Decision Trees')
+    tree_parser = subparsers.add_parser('tree', help='Decision Trees')
+    nearest_parser = subparsers.add_parser('nearest', help='K-Nearest Neighbors')
+    vector_parser = subparsers.add_parser('vector', help='Support Vector Machines')
+    neural_parser = subparsers.add_parser('neural', help='Neural Networks')
     boosting_parser = subparsers.add_parser('boost', help='Boosting')
     args = parser.parse_args()
 
-    if not args.command:
+    if not args.strategy:
         parser.print_help()
 
     strategy = args.strategy
-    path = './results/{}/{}'.format(args.dataset, strategy)
+    path = './results/{}/{}'.format(args.dataset,  strategy)
     if not os.path.exists(path):
-        log.info('Making results directory')
         os.makedirs(path)
     classifications, attributes = load_data(args.dataset)
     log.info('Running %s', strategy)

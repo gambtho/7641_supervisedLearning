@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """Parse arguments and run analysis
 """
 
@@ -9,7 +6,7 @@ from nearest import Nearest
 from vector import Vector
 from neural import Neural
 from tree import Tree
-from boost import Boost
+# from boost import Boost
 import logging
 import pandas as pd
 import os
@@ -22,23 +19,16 @@ CLASSIFIERS = {
     'vector': Vector,
     'neural': Neural,
     'tree': Tree,
-    'boosting': Boost
+    # 'boosting': Boost
 }
 
 
 def load_data(data='car'):
     log.info('Loading: ' + data)
     dataset = pd.read_csv(f"./data/{data}.data")
-
     class_target = 'class'
 
-    # get values of class_target
-    values = dataset[class_target]
-
-    # get all values excluding the classification column
-    data_minus_values = dataset.drop(class_target, axis=1)
-
-    return values.as_matrix(), data_minus_values.as_matrix()
+    return dataset.drop(class_target, axis=1), dataset[class_target].as_matrix(), list(dataset)[:-1]
 
 
 if __name__ == '__main__':
@@ -57,11 +47,12 @@ if __name__ == '__main__':
         parser.print_help()
 
     strategy = args.strategy
-    path = './results/{}/{}'.format(args.dataset,  strategy)
+    path = './results/{}'.format(strategy)
     if not os.path.exists(path):
         os.makedirs(path)
-    classifications, attributes = load_data(args.dataset)
+    data, target, feature_names = load_data(args.dataset)
     log.info('Running %s', strategy)
-    args.classifications = classifications
-    args.attributes = attributes
+    args.target = target
+    args.data = data
+    args.feature_names = feature_names
     CLASSIFIERS[strategy](**vars(args)).run()

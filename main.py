@@ -28,12 +28,16 @@ def load_data(data='car'):
     dataset = pd.read_csv(f"./data/{data}.data")
     class_target = 'class'
 
-    return dataset.drop(class_target, axis=1), dataset[class_target].as_matrix(), list(dataset)[:-1]
+    _feature_names = list(dataset)[:-1]
+    _target = dataset[class_target].as_matrix()
+    _data = dataset.drop(class_target, axis=1)
+
+    return _data, _target, _feature_names
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='main.py')
-    parser.add_argument('-d', '--dataset', help='data to evaluate', choices=['car', 'iris'],
+    parser.add_argument('-d', '--dataset', help='data to evaluate', choices=['car', 'titanic', 'iris', 'mushrooms'],
                         default='car')
     subparsers = parser.add_subparsers(title='strategy', dest='strategy')
     tree_parser = subparsers.add_parser('tree', help='Decision Trees')

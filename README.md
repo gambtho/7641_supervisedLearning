@@ -9,7 +9,7 @@ Implementation for five learning algorithms. They are for:
 -   *k*-nearest neighbors
 
 Datasets used are
-- https://www.kaggle.com/c/titanic/data
+- https://archive.ics.uci.edu/ml/datasets/mushroom
 - https://archive.ics.uci.edu/ml/datasets/car+evaluation
 
 # Paper

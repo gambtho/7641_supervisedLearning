@@ -30,5 +30,5 @@ class Vector(Experiment):
             'predict__coef0': [0, 1]
         }
         learning_curve_train_sizes = np.arange(0.05, 1.0, 0.05)
-        super().__init__(attributes, classifications, dataset, 'svm', pipeline, params,
+        super().__init__(attributes, classifications, dataset, 'vector', pipeline, params,
                          learning_curve_train_sizes, True, verbose=0, iteration_curve=True)

@@ -27,7 +27,7 @@ scorer = make_scorer(balanced_accuracy)
 class Experiment:
 
     def __init__(self, attributes, classifications,
-                 dataset, algorithm, pipeline, params,
+                 dataset, strategy, pipeline, params,
                  learning_curve_train_sizes,
                  timing_curve=False,
                  verbose=1,
@@ -38,7 +38,7 @@ class Experiment:
         self._atttributes = attributes
         self._classifications = classifications
         self._dataset = dataset
-        self._algorithm = algorithm
+        self._strategy = strategy
         self._pipeline = pipeline
         self._params = params
         self._learning_curve_train_sizes = learning_curve_train_sizes
@@ -56,8 +56,7 @@ class Experiment:
         logger.info('Got data split')
         experiment_pipe = self._pipeline
         model_params = self._params
-        # cross validation -> best estimator
-        # refit is true ...
+
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             cv = GridSearchCV(experiment_pipe,
@@ -66,7 +65,7 @@ class Experiment:
             logger.info('Searching params')
             cv.fit(x_train, y_train)
             cv_all = pd.DataFrame(cv.cv_results_)
-            csv_str = '{}/{}/'.format(self._dataset, self._algorithm)
+            csv_str = '{}/{}'.format(self._dataset, self._strategy)
             cv_all.to_csv('./results/{}/cv.csv'.format(csv_str), index=False)
             self._basic_accuracy(cv, x_test, y_test, csv_str)
             self._learning_curve(cv, x_train, y_train, csv_str)
@@ -77,7 +76,6 @@ class Experiment:
             return cv
 
     def _basic_accuracy(self, cv, x_test, y_test, csv_str):
-        # simple best fit against test data
         logger.info('Writing out basic result')
         results_df = pd.DataFrame(columns=['best_estimator', 'best_score', 'best_params', 'test_score'],
                                   data=[
@@ -85,7 +83,6 @@ class Experiment:
         results_df.to_csv('./results/{}/basic.csv'.format(csv_str), index=False)
 
     def _learning_curve(self, cv, x_train, y_train, csv_str):
-        # learning curve
         logger.info('Creating learning curve')
         accuracy_learning_curve = learning_curve(cv.best_estimator_, x_train, y_train,
                                                  cv=self._cv, train_sizes=self._learning_curve_train_sizes,
@@ -108,8 +105,6 @@ class Experiment:
         plt.savefig('./results/{}/learning-curve.png'.format(csv_str))
 
     def _create_timing_curve(self, estimator, csv_str):
-        ''' Create a timing curve
-        '''
         logger.info('Creating timing curve')
         training_data_sizes = np.arange(0.1, 1.0, 0.1)
         train_time = []
@@ -140,8 +135,6 @@ class Experiment:
         time_csv.to_csv('./results/{}/time.csv'.format(csv_str), index=False)
 
     def _create_iteration_curve(self, estimator, csv_str, x_train, x_test, y_train, y_test):
-        '''Create an iteration accuracy curve
-        '''
         logger.info('Creating iteration curve')
         iterations = np.arange(1, 5000, 250)
         train_iter = []
@@ -168,10 +161,5 @@ class Experiment:
         iter_csv.to_csv('./results/{}/iteration.csv'.format(csv_str), index=False)
 
     def _split_train_test(self, test_size=0.3):
-        '''Split up the data correctly according to a ratio
-
-        Returns:
-            The split data
-        '''
         return train_test_split(self._atttributes, self._classifications,
                                 test_size=test_size, random_state=self._random, stratify=self._classifications)

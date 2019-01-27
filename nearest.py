@@ -25,5 +25,5 @@ class Nearest(Experiment):
             'predict__weights': ['uniform', 'distance']
         }
         learning_curve_train_sizes = np.arange(0.01, 1.0, 0.025)
-        super().__init__(attributes, classifications, dataset, 'knn', pipeline, params,
+        super().__init__(attributes, classifications, dataset, 'nearest', pipeline, params,
                          learning_curve_train_sizes, True)

@@ -54,7 +54,7 @@ class Boost(Experiment):
                              ('predict',
                               AdaBoostClassifier(algorithm='SAMME', base_estimator=basic_tree, random_state=10))])
 
-        super().__init__(attributes, classifications, dataset, 'boosting', pipeline, params,
+        super().__init__(attributes, classifications, dataset, 'boost', pipeline, params,
                          learning_curve_train_sizes, True, verbose=1, iteration_curve=False)
 
     def run(self):
@@ -85,7 +85,7 @@ class Boost(Experiment):
             plt.grid(linestyle='dotted')
             plt.xlabel('Estimators')
             plt.ylabel('Accuracy')
-            csv_str = '{}/{}'.format(self._dataset, self._algorithm)
+            csv_str = '{}/{}'.format(self._dataset, self._strategy)
             plt.savefig('./results/{}/estimator-curve.png'.format(csv_str))
             iter_csv = pd.DataFrame(data=final_df, columns=['Estimators', 'Train Accuracy', 'Test Accuracy'])
             iter_csv.to_csv('./results/{}/estimator.csv'.format(csv_str), index=False)

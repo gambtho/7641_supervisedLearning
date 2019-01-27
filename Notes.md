@@ -26,4 +26,11 @@ in cars
 
 
 
-https://www.kaggle.com/c/titanic/data
+https://www.kdnuggets.com/2017/12/managing-machine-learning-workflows-scikit-learn-pipelines-part-1.html
+
+https://www.kaggle.com/baghern/a-deep-dive-into-sklearn-pipelines
+
+https://gist.github.com/amberjrivera/8c5c145516f5a2e894681e16a8095b5c
+
+https://www.kaggle.com/rtatman/beginner-s-tutorial-python
+

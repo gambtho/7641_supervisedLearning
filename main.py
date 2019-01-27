@@ -10,6 +10,8 @@ from tree import Tree
 import logging
 import pandas as pd
 import os
+from sklearn.preprocessing import LabelEncoder
+
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -28,11 +30,20 @@ def load_data(data='car'):
     dataset = pd.read_csv(f"./data/{data}.data")
     class_target = 'class'
 
-    _feature_names = list(dataset)[:-1]
-    _target = dataset[class_target].as_matrix()
-    _data = dataset.drop(class_target, axis=1)
+    classifications = dataset[class_target].as_matrix()
+    attributes = dataset.drop(class_target, axis=1)
 
-    return _data, _target, _feature_names
+    le = LabelEncoder()
+    mapping_file = open('results/{}/{}-mappings.txt'.format(data, args.strategy), "w+")
+
+    for column in attributes.columns:
+        if attributes[column].dtype == type(object):
+            attributes[column] = le.fit_transform(attributes[column].astype(str))
+
+            le_name_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
+            mapping_file.write('{}\n'.format(le_name_mapping))
+
+    return attributes, classifications
 
 
 if __name__ == '__main__':
@@ -51,12 +62,9 @@ if __name__ == '__main__':
         parser.print_help()
 
     strategy = args.strategy
-    path = './results/{}'.format(strategy)
+    path = './results/{}/{}'.format(args.dataset, strategy)
     if not os.path.exists(path):
         os.makedirs(path)
-    data, target, feature_names = load_data(args.dataset)
+    args.attributes, args.classifications = load_data(args.dataset)
     log.info('Running %s', strategy)
-    args.target = target
-    args.data = data
-    args.feature_names = feature_names
     CLASSIFIERS[strategy](**vars(args)).run()

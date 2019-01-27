@@ -26,5 +26,5 @@ class Neural(Experiment):
             'predict__hidden_layer_sizes': [(32), (64), (128), (32, 64, 32), (64, 128, 64)]
         }
         learning_curve_train_sizes = np.arange(0.01, 1.0, 0.025)
-        super().__init__(attributes, classifications, dataset, 'ann', pipeline, params,
+        super().__init__(attributes, classifications, dataset, 'neural', pipeline, params,
                          learning_curve_train_sizes, True, verbose=1, iteration_curve=True)

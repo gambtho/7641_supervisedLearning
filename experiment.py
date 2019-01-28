@@ -11,6 +11,11 @@ from sklearn.metrics import make_scorer, accuracy_score
 from sklearn.utils import compute_sample_weight
 from time import process_time
 from sklearn.model_selection import ShuffleSplit, cross_val_score
+from utilities import Utilities
+from sklearn import tree
+from sklearn.metrics import classification_report, accuracy_score
+import graphviz
+import matplotlib.pyplot as plt
 
 logger = logging.getLogger(__name__)
 import warnings
@@ -35,7 +40,7 @@ class Experiment:
         ''' Constructor
         '''
         # what data are we looking at
-        self._atttributes = attributes
+        self._attributes = attributes
         self._classifications = classifications
         self._dataset = dataset
         self._strategy = strategy
@@ -71,11 +76,38 @@ class Experiment:
             print(cv.best_params_)
             self._basic_accuracy(cv, x_test, y_test, csv_str)
             self._learning_curve(cv, x_train, y_train, csv_str)
+            self._classification_report(cv, x_test, y_test, csv_str)
+            logger.info(model_params)
+            logger.info(cv.best_params_)
+            # self._plot_grid_search(cv.cv_results_, model_params[0].value, model_params[1].value, model_params[0].key, model_params[1].key)
+
+            # if self._strategy == 'tree':
+            #     self._create_tree(cv, csv_str, x_train, y_train)
             if self._timing_curve:
                 self._create_timing_curve(cv, csv_str)
             if self._iteration_curve:
                 self._create_iteration_curve(cv, csv_str, x_train, x_test, y_train, y_test)
             return cv
+
+    def _create_tree(self, cv, x_train, y_train, csv_str):
+        feature_names = list(self._attributes)
+        target_names = list(set(self._classifications))
+        # logger.info(x_train, y_train)
+        # cv.best_estimator_.fit(x_train, y_train)
+
+        dot = tree.export_graphviz(cv.best_estimator_, out_file=None, feature_names=feature_names,
+                                   class_names=target_names, filled=True, rounded=True, special_characters=True)
+
+        graph = graphviz.Source(dot)
+        graph.format = 'png'
+        graph.render('tree', directory='./results/{}'.format(csv_str), view=False)
+
+    def _classification_report(self, cv, x_test, y_test, csv_str):
+        u = Utilities()
+        u.plot_classification_report(classification_report(cv.best_estimator_.predict(x_test), y_test))
+        plt.savefig('./results/{}/classification-report.png'.format(csv_str), dpi=200, format='png',
+                    bbox_inches='tight')
+        plt.close()
 
     def _basic_accuracy(self, cv, x_test, y_test, csv_str):
         logger.info('Writing out basic result')
@@ -163,5 +195,8 @@ class Experiment:
         iter_csv.to_csv('./results/{}/iteration.csv'.format(csv_str), index=False)
 
     def _split_train_test(self, test_size=0.3):
-        return train_test_split(self._atttributes, self._classifications,
+        return train_test_split(self._attributes, self._classifications,
                                 test_size=test_size, random_state=self._random, stratify=self._classifications)
+
+
+

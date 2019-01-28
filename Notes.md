@@ -6,8 +6,8 @@ in cars
 https://www.kdnuggets.com/2017/12/managing-machine-learning-workflows-scikit-learn-pipelines-part-1.html
 https://gist.github.com/amberjrivera/8c5c145516f5a2e894681e16a8095b5c
 
-## Tuning
-https://www.kaggle.com/aceccon/6-iris-dataset-learning-to-tuning-parameters
+
+
 
 ## D-Tree
 https://www.ritchieng.com/machine-learning-decision-trees/
@@ -18,3 +18,10 @@ https://pythonmachinelearning.pro/supervised-learning-using-decision-trees-to-cl
 #SVM
 https://pythonmachinelearning.pro/classification-with-support-vector-machines/
 
+
+
+## Tuning
+https://www.kaggle.com/aceccon/6-iris-dataset-learning-to-tuning-parameters
+https://scikit-learn.org/stable/auto_examples/model_selection/plot_grid_search_digits.html
+https://scikit-learn.org/stable/auto_examples/model_selection/plot_multi_metric_evaluation.html
+https://stackoverflow.com/questions/37161563/how-to-graph-grid-scores-from-gridsearchcv

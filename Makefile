@@ -1,5 +1,5 @@
 setup:
-	source ${HOME}/miniconda2/bin/activate cs7641_1
+	source ~/miniconda2/bin/activate cs7641_1
 
 run-all: car mushrooms
 

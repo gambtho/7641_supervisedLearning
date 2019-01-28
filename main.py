@@ -6,7 +6,7 @@ from nearest import Nearest
 from vector import Vector
 from neural import Neural
 from tree import Tree
-# from boost import Boost
+from boost import Boost
 import logging
 import pandas as pd
 import os
@@ -21,7 +21,7 @@ CLASSIFIERS = {
     'vector': Vector,
     'neural': Neural,
     'tree': Tree,
-    # 'boosting': Boost
+    'boost': Boost
 }
 
 
@@ -48,7 +48,7 @@ def load_data(data='car'):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='main.py')
-    parser.add_argument('-d', '--dataset', help='data to evaluate', choices=['car', 'titanic', 'iris', 'mushrooms'],
+    parser.add_argument('-d', '--dataset', help='data to evaluate', choices=['car', 'mushrooms'],
                         default='car')
     subparsers = parser.add_subparsers(title='strategy', dest='strategy')
     tree_parser = subparsers.add_parser('tree', help='Decision Trees')

@@ -26,14 +26,43 @@ class Tree(Experiment):
         # self.dataset = dataset
         # self.strategy = 'tree'
 
+        criteria = ["gini", "entropy"]  # criteria to be tested
+        min_sample_split_range = [2, 10, 20]  # min sample split to be tested
+        max_depth_range = [None, 2, 5, 10]  # max depth to be tested
+        min_samples_leaf_range = [1, 5, 10]  # min samples in the leaf to be tested
+        min_leaf_nodes_range = [None, 5, 10, 20]  # min leaf nodes to be tested
+
+        params = {"predict__criterion": criteria,
+                  "predict__min_samples_split": min_sample_split_range,
+                  "predict__max_depth": max_depth_range,
+                  "predict__min_samples_leaf": min_samples_leaf_range,
+                  "predict__max_leaf_nodes": min_leaf_nodes_range
+                  }
+
         pipeline = Pipeline([('scale', StandardScaler()), ('predict', DecisionTreeClassifier())])
-        params = {
-            'predict__criterion': ['gini', 'entropy'],
-            'predict__class_weight': ['balanced']
-        }
+
         learning_curve_train_sizes = np.arange(0.01, 1.0, 0.025)
         super().__init__(attributes, classifications, dataset, 'tree', pipeline, params,
                          learning_curve_train_sizes, True, verbose=1)
+
+    # # Import
+    # from sklearn.grid_search import GridSearchCV
+    #
+    # # Define the parameter values that should be searched
+    # sample_split_range = list(range(1, 50))
+    #
+    # # Create a parameter grid: map the parameter names to the values that should be searched
+    # # Simply a python dictionary
+    # # Key: parameter name
+    # # Value: list of values that should be searched for that parameter
+    # # Single key-value pair for param_grid
+    # param_grid = dict(min_samples_split=sample_split_range)
+    #
+    # # instantiate the grid
+    # grid = GridSearchCV(dtc, param_grid, cv=10, scoring='accuracy')
+    #
+    # # fit the grid with data
+    # grid.fit(X_train, y_train)
 
     # def run(self):
     #

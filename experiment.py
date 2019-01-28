@@ -67,6 +67,8 @@ class Experiment:
             cv_all = pd.DataFrame(cv.cv_results_)
             csv_str = '{}/{}'.format(self._dataset, self._strategy)
             cv_all.to_csv('./results/{}/cv.csv'.format(csv_str), index=False)
+            print("Accuracy of the tuned model: %.4f" % cv.best_score_)
+            print(cv.best_params_)
             self._basic_accuracy(cv, x_test, y_test, csv_str)
             self._learning_curve(cv, x_train, y_train, csv_str)
             if self._timing_curve:

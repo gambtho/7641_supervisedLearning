@@ -16,8 +16,15 @@ logger = logging.getLogger(__name__)
 class Nearest(Experiment):
 
     def __init__(self, attributes, classifications, dataset, **kwargs):
-        ''' Construct the object
-        '''
+        # weight_functions = ["uniform", "distance"]
+        # p_values = [1, 2]
+        # n_range = list(range(1, 51))
+        #
+        # param_grid = {"n_neighbors": n_range,
+        #               "weights": weight_functions,
+        #               "p": p_values
+        #               }  # setting grid of parameters
+
         pipeline = Pipeline([('scale', StandardScaler()), ('predict', KNeighborsClassifier())])
         params = {
             'predict__metric': ['manhattan', 'euclidean', 'chebyshev'],

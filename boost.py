@@ -1,14 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-"""Module documentation goes here
-   and here
-   and ...
-"""
-
 import logging
 import numpy as np
-from tree import PrunedDecisionTreeClassifier
 from experiment import Experiment
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -16,6 +7,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.metrics import make_scorer, accuracy_score
 from sklearn.utils import compute_sample_weight
 from sklearn.model_selection import cross_val_score
+from sklearn.tree import DecisionTreeClassifier
 import warnings
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -33,26 +25,19 @@ logger = logging.getLogger(__name__)
 class Boost(Experiment):
 
     def __init__(self, attributes, classifications, dataset, **kwargs):
-        ''' Construct the object
-        '''
-        if dataset == 'wine':
-            basic_tree = PrunedDecisionTreeClassifier(criterion='entropy', class_weight='balanced', random_state=10)
-            params = {
-                'predict__n_estimators': np.power(2, np.arange(1, 8)),
-                'predict__base_estimator__alpha': np.append(np.arange(0.99, 1.02, 0.001), 0)
-            }
-        else:
-            basic_tree = PrunedDecisionTreeClassifier(criterion='gini', class_weight='balanced', random_state=10)
-            params = {
-                'predict__n_estimators': np.power(2, np.arange(1, 8)),
-                # adaboost crashes with pruning ???
-                'predict__base_estimator__alpha': [0]  # np.append(np.arange(0.99, 1.01, 0.01), 0)
-            }
+
+        dtc = DecisionTreeClassifier(random_state=10)
+
+        params = {
+            'predict__n_estimators': np.power(2, np.arange(1, 8)),
+            'predict__base_estimator__criterion': ["gini", "entropy"],
+            "predict__base_estimator__splitter": ["best", "random"],
+        }
 
         learning_curve_train_sizes = np.arange(0.01, 1.0, 0.025)
         pipeline = Pipeline([('scale', StandardScaler()),
                              ('predict',
-                              AdaBoostClassifier(algorithm='SAMME', base_estimator=basic_tree, random_state=10))])
+                              AdaBoostClassifier(random_state=10, base_estimator=dtc))])
 
         super().__init__(attributes, classifications, dataset, 'boost', pipeline, params,
                          learning_curve_train_sizes, True, verbose=1, iteration_curve=False)

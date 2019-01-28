@@ -1,15 +1,9 @@
 import logging
-from utilities import Utilities
-from sklearn import tree
-from sklearn.metrics import classification_report, accuracy_score
-from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-
 import numpy as np
 from experiment import Experiment
-from sklearn.preprocessing import LabelEncoder
 
 
 logger = logging.getLogger(__name__)

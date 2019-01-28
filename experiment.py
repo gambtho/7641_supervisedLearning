@@ -4,7 +4,6 @@
 import numpy as np
 import logging
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV, learning_curve
 from sklearn.metrics import make_scorer, accuracy_score
@@ -16,6 +15,8 @@ from sklearn import tree
 from sklearn.metrics import classification_report, accuracy_score
 import graphviz
 import matplotlib.pyplot as plt
+# matplotlib.use('Agg')
+
 
 logger = logging.getLogger(__name__)
 import warnings

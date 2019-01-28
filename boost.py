@@ -25,7 +25,6 @@ logger = logging.getLogger(__name__)
 class Boost(Experiment):
 
     def __init__(self, attributes, classifications, dataset, **kwargs):
-
         dtc = DecisionTreeClassifier(random_state=10)
 
         params = {

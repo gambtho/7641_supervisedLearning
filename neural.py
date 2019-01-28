@@ -1,8 +1,3 @@
-"""Module documentation goes here
-   and here
-   and ...
-"""
-
 import logging
 import numpy as np
 from experiment import Experiment
@@ -16,8 +11,6 @@ logger = logging.getLogger(__name__)
 class Neural(Experiment):
 
     def __init__(self, attributes, classifications, dataset, **kwargs):
-        ''' Construct the object
-        '''
         pipeline = Pipeline([('scale', StandardScaler()),
                              ('predict', MLPClassifier(random_state=10, max_iter=2000, early_stopping=True))])
         params = {

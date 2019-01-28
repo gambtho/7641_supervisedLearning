@@ -4,37 +4,37 @@ setup:
 run-all: car mushrooms
 
 car: 
-	make sep
-	echo "Car - Tree"
+	@make sep
+	@echo "Car - Tree"
 	python main.py -d car tree
-	make sep
-	echo "Car - Nearest"
+	@make sep
+	@echo "Car - Nearest"
 	python main.py -d car nearest
-	make sep
-	echo "Car - Neural"
+	@make sep
+	@echo "Car - Neural"
 	python main.py -d car neural
-	make sep
-	echo "Car - Vector"
+	@make sep
+	@echo "Car - Vector"
 	python main.py -d car vector
-	make sep
-	echo "Car - Boost"
+	@make sep
+	@echo "Car - Boost"
 	python main.py -d car boost
 
 mushrooms:
-	make sep
-	echo "Mushrooms - Tree"
+	@make sep
+	@echo "Mushrooms - Tree"
 	python main.py -d mushrooms tree
-	make sep
-	echo "Mushrooms - Nearest"
+	@make sep
+	@echo "Mushrooms - Nearest"
 	python main.py -d mushrooms nearest
-	make sep
-	echo "Mushrooms - Neural"
+	@make sep
+	@echo "Mushrooms - Neural"
 	python main.py -d mushrooms neural
-	make sep
-	echo "Mushrooms - Vector"
+	@make sep
+	@echo "Mushrooms - Vector"
 	python main.py -d mushrooms vector
-	make sep
-	echo "Mushrooms - Boost"
+	@make sep
+	@echo "Mushrooms - Boost"
 	python main.py -d mushrooms boost
 
 clean:

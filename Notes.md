@@ -25,3 +25,7 @@ https://www.kaggle.com/aceccon/6-iris-dataset-learning-to-tuning-parameters
 https://scikit-learn.org/stable/auto_examples/model_selection/plot_grid_search_digits.html
 https://scikit-learn.org/stable/auto_examples/model_selection/plot_multi_metric_evaluation.html
 https://stackoverflow.com/questions/37161563/how-to-graph-grid-scores-from-gridsearchcv
+
+
+## histogram
+https://towardsdatascience.com/histograms-and-density-plots-in-python-f6bda88f5ac0

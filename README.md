@@ -19,7 +19,7 @@ https://docs.google.com/document/d/1sHs7pN5LipVjyM3yq5fb_pmNY8Jq6xsB8xxHljjV4n8/
 
 ### Miniconda
 
-- Follow the instructions at https://conda.io/docs/user-guide/install/index.html
+- Follow the instructions at https://conda.io/projects/conda/en/latest/user-guide/install
 - Use miniconda to install all dependencies through `environment.yml` (instruction assumes conda is in your path)
 
 ```

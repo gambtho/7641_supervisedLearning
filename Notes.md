@@ -1,6 +1,12 @@
+###TODO
 in cars
 - replaced 5more with 5
 - replaced more with 5
+
+## replace label encorder with this
+http://www.scikit-yb.org/en/latest/tutorial.html#feature-extraction
+maybe this - http://www.scikit-yb.org/en/latest/tutorial.html#modeling-and-evaluation
+
 
 ## Pipelines
 https://www.kdnuggets.com/2017/12/managing-machine-learning-workflows-scikit-learn-pipelines-part-1.html
@@ -29,3 +35,7 @@ https://stackoverflow.com/questions/37161563/how-to-graph-grid-scores-from-grids
 
 ## histogram
 https://towardsdatascience.com/histograms-and-density-plots-in-python-f6bda88f5ac0
+
+## complexity
+https://scikit-learn.org/stable/auto_examples/applications/plot_model
+_complexity_influence.html#sphx-glr-auto-examples-applications-plot-model-complexity-influence-py

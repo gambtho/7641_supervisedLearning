@@ -10,8 +10,10 @@ from boost import Boost
 import logging
 import pandas as pd
 import os
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-
+from yellowbrick.target import FeatureCorrelation
+from yellowbrick import ClassBalance
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -26,24 +28,37 @@ CLASSIFIERS = {
 
 
 def load_data(data='car'):
-    log.info('Loading: ' + data)
     dataset = pd.read_csv(f"./data/{data}.data")
     class_target = 'class'
 
-    classifications = dataset[class_target].as_matrix()
+    classifications = dataset[class_target]
     attributes = dataset.drop(class_target, axis=1)
 
     le = LabelEncoder()
-    mapping_file = open('results/{}/{}-mappings.txt'.format(data, args.strategy), "w+")
 
     for column in attributes.columns:
         if attributes[column].dtype == type(object):
             attributes[column] = le.fit_transform(attributes[column].astype(str))
-
-            le_name_mapping = dict(zip(le.classes_, le.transform(le.classes_)))
-            mapping_file.write('{}\n'.format(le_name_mapping))
+            attributes[column] = attributes[column].astype(float)
+        elif pd.api.types.is_int64_dtype(attributes[column].dtype):
+            attributes[column] = attributes[column].astype(float)
 
     return attributes, classifications
+
+
+def plot_data_info(attributes, classifications):
+    x, y = attributes, classifications
+    feature_names = list(attributes)
+    classes = list(set(classifications))
+    x_pd = pd.DataFrame(x, columns=feature_names)
+    correlation = FeatureCorrelation(method='mutual_info-classification',
+                                     feature_names=feature_names, sort=True)
+    correlation.fit(x_pd, y, random_state=0)
+    correlation.poof(outpath='./results/{}/correlation.png'.format(args.dataset))
+    _, _, y_train, y_test = train_test_split(x, y, test_size=0.2)
+    balance = ClassBalance(labels=classes)
+    balance.fit(y_train, y_test)
+    balance.poof(outpath='./results/{}/balance.png'.format(args.dataset))
 
 
 if __name__ == '__main__':
@@ -63,8 +78,15 @@ if __name__ == '__main__':
 
     strategy = args.strategy
     path = './results/{}/{}'.format(args.dataset, strategy)
+
+    args.attributes, args.classifications = load_data(args.dataset)
+
     if not os.path.exists(path):
         os.makedirs(path)
-    args.attributes, args.classifications = load_data(args.dataset)
-    log.info('Running %s', strategy)
+    # plot_data_info(args.attributes, args.classifications)
+
+    print('{}---------------------->{}'.format(args.dataset, args.strategy))
     CLASSIFIERS[strategy](**vars(args)).run()
+
+
+

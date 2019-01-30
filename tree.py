@@ -6,8 +6,6 @@ from sklearn.tree import DecisionTreeClassifier
 from yellowbrick.classifier import ClassificationReport
 import matplotlib.pyplot as plt
 # from debug import Debug
-# import logging
-# logger = logging.getLogger(__name__)
 
 
 class Tree(Experiment):

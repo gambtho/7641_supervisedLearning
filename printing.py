@@ -71,6 +71,7 @@ class Printing:
 
     @staticmethod
     def learning_curve(cv, x_train, y_train, csv_str, scoring, shuffle, train_sizes):
+        plt.figure()
         viz = LearningCurve(
             cv.best_estimator_, cv=shuffle, train_sizes=train_sizes,
             scoring=scoring, n_jobs=8
@@ -79,7 +80,8 @@ class Printing:
         viz.poof(outpath='./results/{}/learning-curve.png'.format(csv_str))
 
     @staticmethod
-    def plot_data_info(attributes, classifications):
+    def plot_data_info(attributes, classifications, dataset):
+        plt.figure()
         x, y = attributes, classifications
         feature_names = list(attributes)
         classes = list(set(classifications))
@@ -87,11 +89,12 @@ class Printing:
         correlation = FeatureCorrelation(method='mutual_info-classification',
                                          feature_names=feature_names, sort=True)
         correlation.fit(x_pd, y, random_state=0)
-        correlation.poof(outpath='./results/{}/correlation.png'.format(args.dataset))
+        correlation.poof(outpath='./results/{}/correlation.png'.format(dataset))
         _, _, y_train, y_test = train_test_split(x, y, test_size=0.2)
+        plt.figure()
         balance = ClassBalance(labels=classes)
         balance.fit(y_train, y_test)
-        balance.poof(outpath='./results/{}/balance.png'.format(args.dataset))
+        balance.poof(outpath='./results/{}/balance.png'.format(dataset))
 
     @staticmethod
     def create_iteration_curve(estimator, csv_str, x_train, x_test, y_train, y_test, scoring, shuffle):
@@ -107,7 +110,6 @@ class Printing:
             train_iter.append(np.mean(cross_val_score(best_estimator, x_train, y_train, scoring=scoring, cv=shuffle)))
             predict_iter.append(np.mean(cross_val_score(best_estimator, x_test, y_test, scoring=scoring, cv=shuffle)))
             final_df.append([iteration, train_iter[i], predict_iter[i]])
-        plt.figure(3)
         plt.plot(iterations, train_iter,
                  marker='o', color='blue', label='Train Score')
         plt.plot(iterations, predict_iter,

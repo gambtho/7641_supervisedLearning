@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
     if not os.path.exists(path):
         os.makedirs(path)
-    # Printing.plot_data_info(args.attributes, args.classifications)
+    Printing.plot_data_info(args.attributes, args.classifications, args.dataset)
 
     print('{}---------------------->{}'.format(args.dataset, args.strategy))
     CLASSIFIERS[strategy](**vars(args)).run()

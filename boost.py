@@ -1,34 +1,23 @@
-import logging
 import numpy as np
 from experiment import Experiment
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import AdaBoostClassifier
-from sklearn.metrics import make_scorer, accuracy_score
-from sklearn.utils import compute_sample_weight
 from sklearn.model_selection import cross_val_score
 from sklearn.tree import DecisionTreeClassifier
 import warnings
 import matplotlib.pyplot as plt
 import pandas as pd
-
-
-def balanced_accuracy(truth, pred):
-    wts = compute_sample_weight('balanced', truth)
-    return accuracy_score(truth, pred, sample_weight=wts)
-
-
-scorer = make_scorer(balanced_accuracy)
-logger = logging.getLogger(__name__)
+from yellowbrick.classifier import ClassificationReport
 
 
 class Boost(Experiment):
 
     def __init__(self, attributes, classifications, dataset, **kwargs):
         dtc = DecisionTreeClassifier(random_state=10)
+        self._csv_str = './results/{}/boost/'.format(dataset)
 
-        # "{'predict__criterion': 'gini', 'predict__max_depth': None,
-        # 'predict__max_leaf_nodes': None, 'predict__min_samples_leaf': 1, 'predict__min_samples_split': 2
+
         params = {
             'predict__n_estimators': [1, 10, 50, 100],
             'predict__learning_rate': [0.1, 0.5, 1, 10],
@@ -46,7 +35,6 @@ class Boost(Experiment):
 
     def run(self):
         cv = super().run()
-        logger.info('Running estimator check')
         n_estimators = np.arange(1, 24, 2)
         train_iter = []
         estimator_iter = []
@@ -54,16 +42,16 @@ class Boost(Experiment):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             best_estimator = cv.best_estimator_
-            x_train, x_test, y_train, y_test = _split_train_test()
+            x_train, x_test, y_train, y_test = super().get_data_split()
             for i, n_estimator in enumerate(n_estimators):
                 best_estimator.set_params(**{'predict__n_estimators': n_estimator})
                 best_estimator.fit(x_train, y_train)
                 train_iter.append(
-                    np.mean(cross_val_score(best_estimator, x_train, y_train, scoring=scorer, cv=self._cv)))
+                    np.mean(cross_val_score(best_estimator, x_train, y_train, cv=self._cv)))
                 estimator_iter.append(
-                    np.mean(cross_val_score(best_estimator, x_test, y_test, scoring=scorer, cv=self._cv)))
+                    np.mean(cross_val_score(best_estimator, x_test, y_test, cv=self._cv)))
                 final_df.append([n_estimator, train_iter[i], estimator_iter[i]])
-            plt.figure(5)
+            plt.figure()
             plt.plot(n_estimators, train_iter,
                      marker='o', color='blue', label='Train Score')
             plt.plot(n_estimators, estimator_iter,
@@ -76,3 +64,17 @@ class Boost(Experiment):
             plt.savefig('./results/{}/estimator-curve.png'.format(csv_str))
             iter_csv = pd.DataFrame(data=final_df, columns=['Estimators', 'Train Accuracy', 'Test Accuracy'])
             iter_csv.to_csv('./results/{}/estimator.csv'.format(csv_str), index=False)
+
+            self.naive_report(x_test, x_train, y_test, y_train, self._csv_str)
+
+    @staticmethod
+    def naive_report(x_test, x_train, y_test, y_train, csv_str):
+        _, ax = plt.subplots()
+        dtc = DecisionTreeClassifier(random_state=0, min_samples_leaf=10, min_samples_split=10)
+        visualizer = ClassificationReport(
+            AdaBoostClassifier(base_estimator=dtc)
+        )
+        visualizer.fit(x_train, y_train)
+        visualizer.score(x_test, y_test)
+        visualizer.poof(outpath="{}/naive-classification.png".format(csv_str))
+

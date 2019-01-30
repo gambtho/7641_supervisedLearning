@@ -51,7 +51,7 @@ class Boost(Experiment):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             best_estimator = cv.best_estimator_
-            x_train, x_test, y_train, y_test = self._split_train_test()
+            x_train, x_test, y_train, y_test = _split_train_test()
             for i, n_estimator in enumerate(n_estimators):
                 best_estimator.set_params(**{'predict__n_estimators': n_estimator})
                 best_estimator.fit(x_train, y_train)

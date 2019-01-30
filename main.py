@@ -10,10 +10,8 @@ from boost import Boost
 import logging
 import pandas as pd
 import os
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-from yellowbrick.target import FeatureCorrelation
-from yellowbrick import ClassBalance
+from printing import Printing
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -46,21 +44,6 @@ def load_data(data='car'):
     return attributes, classifications
 
 
-def plot_data_info(attributes, classifications):
-    x, y = attributes, classifications
-    feature_names = list(attributes)
-    classes = list(set(classifications))
-    x_pd = pd.DataFrame(x, columns=feature_names)
-    correlation = FeatureCorrelation(method='mutual_info-classification',
-                                     feature_names=feature_names, sort=True)
-    correlation.fit(x_pd, y, random_state=0)
-    correlation.poof(outpath='./results/{}/correlation.png'.format(args.dataset))
-    _, _, y_train, y_test = train_test_split(x, y, test_size=0.2)
-    balance = ClassBalance(labels=classes)
-    balance.fit(y_train, y_test)
-    balance.poof(outpath='./results/{}/balance.png'.format(args.dataset))
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='main.py')
     parser.add_argument('-d', '--dataset', help='data to evaluate', choices=['car', 'mushrooms'],
@@ -83,7 +66,7 @@ if __name__ == '__main__':
 
     if not os.path.exists(path):
         os.makedirs(path)
-    # plot_data_info(args.attributes, args.classifications)
+    # Printing.plot_data_info(args.attributes, args.classifications)
 
     print('{}---------------------->{}'.format(args.dataset, args.strategy))
     CLASSIFIERS[strategy](**vars(args)).run()

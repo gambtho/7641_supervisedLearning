@@ -36,18 +36,19 @@ class Tree(Experiment):
     def run(self):
         super().run()
         x_train, x_test, y_train, y_test = super().get_data_split()
-        self.naive_report(x_test, x_train, y_test, y_train)
+        self.naive_report(x_test, x_train, y_test, y_train, self._csv_str)
 
         # self.info_print(x_test, x_train, y_test, y_train)
 
-    def naive_report(self, x_test, x_train, y_test, y_train):
+    @staticmethod
+    def naive_report(x_test, x_train, y_test, y_train, csv_str):
         _, ax = plt.subplots()
         visualizer = ClassificationReport(
             DecisionTreeClassifier(random_state=0, min_samples_leaf=10, min_samples_split=10), ax=ax
         )
         visualizer.fit(x_train, y_train)
         visualizer.score(x_test, y_test)
-        visualizer.poof(outpath="{}/naive-classification.png".format(self._csv_str))
+        visualizer.poof(outpath="{}/naive-classification.png".format(csv_str))
 
 
 

@@ -27,8 +27,11 @@ class Boost(Experiment):
     def __init__(self, attributes, classifications, dataset, **kwargs):
         dtc = DecisionTreeClassifier(random_state=10)
 
+        # "{'predict__criterion': 'gini', 'predict__max_depth': None,
+        # 'predict__max_leaf_nodes': None, 'predict__min_samples_leaf': 1, 'predict__min_samples_split': 2
         params = {
-            'predict__n_estimators': np.power(2, np.arange(1, 8)),
+            'predict__n_estimators': [1, 10, 50, 100],
+            'predict__learning_rate': [0.1, 0.5, 1, 10],
             'predict__base_estimator__criterion': ["gini", "entropy"],
             "predict__base_estimator__splitter": ["best", "random"],
         }

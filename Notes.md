@@ -3,9 +3,21 @@ in cars
 - replaced 5more with 5
 - replaced more with 5
 
+
+## Open tabs
+https://www.kaggle.com/mayu0116/hyper-parameters-tuning-of-dtree-rf-svm-knn
+https://thuijskens.github.io/2017/10/07/feature-selection/
+https://github.com/DistrictDataLabs/yellowbrick/blob/develop/yellowbrick/gridsearch/base.py
+https://muthu.co/understanding-the-classification-report-in-sklearn/
+https://www.geeksforgeeks.org/decision-tree-implementation-python/
+https://chrisalbon.com/machine_learning/model_evaluation/plot_the_validation_curve/
+https://www.ritchieng.com/machine-learning-decision-trees/
+
 ## replace label encorder with this
 http://www.scikit-yb.org/en/latest/tutorial.html#feature-extraction
 maybe this - http://www.scikit-yb.org/en/latest/tutorial.html#modeling-and-evaluation
+https://www.kaggle.com/anirudh2312/interpretation-and-tuning-of-hyperparameters - feature importance
+
 
 
 ## Pipelines
@@ -39,3 +51,5 @@ https://towardsdatascience.com/histograms-and-density-plots-in-python-f6bda88f5a
 ## complexity
 https://scikit-learn.org/stable/auto_examples/applications/plot_model
 _complexity_influence.html#sphx-glr-auto-examples-applications-plot-model-complexity-influence-py
+
+

@@ -79,6 +79,22 @@ class Experiment:
                 Printing.validation_curve(cv, x_train, y_train, 'predict__min_samples_leaf', [1, 2, 5, 10], csv_str, scoring, shuffle)
                 Printing.validation_curve(cv, x_train, y_train, 'predict__max_leaf_nodes', [5, 10, 20], csv_str, scoring, shuffle)
 
+            if self._strategy == 'nearest':
+                Printing.validation_curve(cv, x_train, y_train, 'predict__n_neighbors', [5, 6, 7, 8, 9, 10], csv_str, scoring, shuffle)
+                Printing.validation_curve(cv, x_train, y_train, 'predict__leaf_size', [1, 3, 5, 9, 15], csv_str, scoring, shuffle)
+
+            if self._strategy == 'vector':
+                Printing.validation_curve(cv, x_train, y_train, 'predict__c_range', [0.01, 0.1, 1, 10, 100, 1000], csv_str, scoring, shuffle)
+                Printing.validation_curve(cv, x_train, y_train, 'predict__degree', [1, 2, 3, 4, 5, 6], csv_str, scoring, shuffle)
+
+            if self._strategy == 'neural':
+                Printing.validation_curve(cv, x_train, y_train, 'predict__alpha', np.arange(0.0001, .05, 3, 0.1), csv_str, scoring, shuffle)
+                Printing.validation_curve(cv, x_train, y_train, 'predict__hidden_layer_sizes', [(32, 64, 32), (64, 128, 64), (50, 50, 50), (50, 100, 50), (100,)], csv_str, scoring, shuffle)
+
+            if self._strategy == 'boosting':
+                Printing.validation_curve(cv, x_train, y_train, 'predict__n_estimators', [1, 10, 50, 100], csv_str, scoring, shuffle)
+                Printing.validation_curve(cv, x_train, y_train, 'predict__learning_rate', [0.1, 0.5, 1, 10], csv_str, scoring, shuffle)
+
             if self._timing_curve:
                 self._create_timing_curve(cv, csv_str)
             if self._iteration_curve:

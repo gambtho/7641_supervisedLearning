@@ -19,7 +19,7 @@ class Nearest(Experiment):
         pipeline = Pipeline([('scale', StandardScaler()), ('predict', KNeighborsClassifier())])
         params = {
             'predict__metric': ['manhattan'],
-            'predict__n_neighbors': [1, 3],
+            'predict__n_neighbors': [1, 3, 5],
             'predict__weights': ['uniform', 'distance'],
             'predict__leaf_size': [1, 3],
             'predict__algorithm': ['auto'],

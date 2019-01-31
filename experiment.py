@@ -75,13 +75,21 @@ class Experiment:
 
             if self._strategy == 'tree':
                 Printing.validation_curve(cv, x_train, y_train, 'predict__min_samples_split', [2, 10, 20], csv_str, scoring, shuffle)
-                Printing.validation_curve(cv, x_train, y_train, 'predict__max_depth', [1, 2, 5, 10], csv_str, scoring, shuffle)
                 Printing.validation_curve(cv, x_train, y_train, 'predict__min_samples_leaf', [1, 2, 5, 10], csv_str, scoring, shuffle)
-                Printing.validation_curve(cv, x_train, y_train, 'predict__max_leaf_nodes', [5, 10, 20], csv_str, scoring, shuffle)
+                if self._dataset == 'car':
+                    Printing.validation_curve(cv, x_train, y_train, 'predict__max_depth', [1, 2, 5, 10, 50, 60],
+                                              csv_str, scoring, shuffle)
+                    Printing.validation_curve(cv, x_train, y_train, 'predict__max_leaf_nodes',
+                                              [5, 10, 20, 50, 100, 200, 300], csv_str, scoring, shuffle)
+                elif self._dataset == 'mushrooms':
+                    Printing.validation_curve(cv, x_train, y_train, 'predict__max_depth', [1, 5, 10, 20],
+                                              csv_str, scoring, shuffle)
+                    Printing.validation_curve(cv, x_train, y_train, 'predict__max_leaf_nodes',
+                                              [5, 10, 20, 50], csv_str, scoring, shuffle)
 
             if self._strategy == 'nearest':
-                Printing.validation_curve(cv, x_train, y_train, 'predict__n_neighbors', [5, 6, 7, 8, 9, 10], csv_str, scoring, shuffle)
-                Printing.validation_curve(cv, x_train, y_train, 'predict__leaf_size', [1, 3, 5, 9, 15], csv_str, scoring, shuffle)
+                Printing.validation_curve(cv, x_train, y_train, 'predict__n_neighbors', [1, 3, 5, 7], csv_str, scoring, shuffle)
+                Printing.validation_curve(cv, x_train, y_train, 'predict__leaf_size', [1, 3, 5], csv_str, scoring, shuffle)
 
             if self._strategy == 'vector':
                 Printing.validation_curve(cv, x_train, y_train, 'predict__C', [10, 100, 200], csv_str, scoring, shuffle)

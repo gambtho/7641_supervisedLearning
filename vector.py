@@ -44,7 +44,7 @@ class Vector(Experiment):
     def naive_report(x_test, x_train, y_test, y_train, csv_str):
         _, ax = plt.subplots()
         visualizer = ClassificationReport(
-            SVC(gamma='auto', c_range=5, kernel='linear')
+            SVC(gamma='auto')
         )
         visualizer.fit(x_train, y_train)
         visualizer.score(x_test, y_test)

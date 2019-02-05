@@ -3,6 +3,7 @@ from yellowbrick.model_selection import ValidationCurve, LearningCurve, CVScores
 from yellowbrick.features.importances import FeatureImportances
 from pandas.plotting import table
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import cross_val_score, train_test_split

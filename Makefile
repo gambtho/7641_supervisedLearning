@@ -1,9 +1,12 @@
 setup:
 	source ~/miniconda2/bin/activate cs7641_1
 
-run-all: car mushrooms
+linux:
+	source /home/thgamble/apps/miniconda3/etc/profile.d/conda.sh
 
-car: 
+run-all: car mushroom
+
+car:
 	@make sep
 	@echo "Car - Tree"
 	python main.py -d car tree
@@ -20,22 +23,22 @@ car:
 	@echo "Car - Boost"
 	python main.py -d car boost
 
-mushrooms:
+mushroom:
 	@make sep
-	@echo "Mushrooms - Tree"
-	python main.py -d mushrooms tree
+	@echo "mushroom - Tree"
+	python main.py -d mushroom tree
 	@make sep
-	@echo "Mushrooms - Nearest"
-	python main.py -d mushrooms nearest
+	@echo "mushroom - Nearest"
+	python main.py -d mushroom nearest
 	@make sep
-	@echo "Mushrooms - Neural"
-	python main.py -d mushrooms neural
+	@echo "mushroom - Neural"
+	python main.py -d mushroom neural
 	@make sep
-	@echo "Mushrooms - Vector"
-	python main.py -d mushrooms vector
+	@echo "mushroom - Vector"
+	python main.py -d mushroom vector
 	@make sep
-	@echo "Mushrooms - Boost"
-	python main.py -d mushrooms boost
+	@echo "mushroom - Boost"
+	python main.py -d mushroom boost
 
 clean:
 	rm -f results

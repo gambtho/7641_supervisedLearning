@@ -46,7 +46,7 @@ def load_data(data='car'):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='main.py')
-    parser.add_argument('-d', '--dataset', help='data to evaluate', choices=['car', 'mushrooms'],
+    parser.add_argument('-d', '--dataset', help='data to evaluate', choices=['car', 'mushroom'],
                         default='car')
     subparsers = parser.add_subparsers(title='strategy', dest='strategy')
     tree_parser = subparsers.add_parser('tree', help='Decision Trees')

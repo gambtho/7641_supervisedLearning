@@ -26,7 +26,7 @@ CLASSIFIERS = {
 
 
 def load_data(data='car'):
-    dataset = pd.read_csv(f"./data/{data}.data")
+    dataset = pd.read_csv(f"./data/{data}.csv")
     class_target = 'class'
 
     classifications = dataset[class_target]
@@ -69,6 +69,9 @@ if __name__ == '__main__':
     Printing.plot_data_info(args.attributes, args.classifications, args.dataset)
 
     print('{}---------------------->{}'.format(args.dataset, args.strategy))
+    CLASSIFIERS[strategy](**vars(args)).run()
+    args.dataset = '{}-slim'.format(args.dataset)
+    args.attributes, args.classifications = load_data(args.dataset)
     CLASSIFIERS[strategy](**vars(args)).run()
 
 

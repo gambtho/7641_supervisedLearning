@@ -32,11 +32,19 @@ class Nearest(Experiment):
     def naive_report(x_test, x_train, y_test, y_train, csv_str):
         _, ax = plt.subplots()
         visualizer = ClassificationReport(
-            KNeighborsClassifier(n_neighbors=2)
+            KNeighborsClassifier()
         )
         visualizer.fit(x_train, y_train)
         visualizer.score(x_test, y_test)
         visualizer.poof(outpath="{}/naive-classification.png".format(csv_str))
+
+        _, ax = plt.subplots()
+        visualizer = ClassificationReport(
+            KNeighborsClassifier(n_neighbors=10)
+        )
+        visualizer.fit(x_train, y_train)
+        visualizer.score(x_test, y_test)
+        visualizer.poof(outpath="{}/worst-classification.png".format(csv_str))
 
     def run(self):
         super().run()

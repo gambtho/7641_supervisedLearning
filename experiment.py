@@ -135,7 +135,6 @@ class Experiment:
         plt.plot(training_data_sizes, predict_time,
                  marker='o', color='green', label='Predicting')
         plt.legend()
-        plt.tight_layout()
         plt.grid(linestyle='dotted')
         plt.xlabel('Total Data Used for Training as a Percentage')
         plt.ylabel('Time in Seconds')

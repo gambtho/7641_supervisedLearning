@@ -70,11 +70,20 @@ class Boost(Experiment):
     @staticmethod
     def naive_report(x_test, x_train, y_test, y_train, csv_str):
         _, ax = plt.subplots()
-        dtc = DecisionTreeClassifier(random_state=0, min_samples_leaf=10, min_samples_split=10)
+        dtc = DecisionTreeClassifier(random_state=0)
         visualizer = ClassificationReport(
             AdaBoostClassifier(base_estimator=dtc)
         )
         visualizer.fit(x_train, y_train)
         visualizer.score(x_test, y_test)
         visualizer.poof(outpath="{}/naive-classification.png".format(csv_str))
+
+        _, ax = plt.subplots()
+        dtc = DecisionTreeClassifier(random_state=0, min_samples_leaf=20, min_samples_split=20, max_depth=5, max_leaf_nodes=5)
+        visualizer = ClassificationReport(
+            AdaBoostClassifier(base_estimator=dtc)
+        )
+        visualizer.fit(x_train, y_train)
+        visualizer.score(x_test, y_test)
+        visualizer.poof(outpath="{}/worst-classification.png".format(csv_str))
 

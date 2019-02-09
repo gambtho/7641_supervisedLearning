@@ -38,9 +38,17 @@ class Neural(Experiment):
     def naive_report(x_test, x_train, y_test, y_train, csv_str):
         _, ax = plt.subplots()
         visualizer = ClassificationReport(
-            MLPClassifier(max_iter=100)
+            MLPClassifier()
         )
         visualizer.fit(x_train, y_train)
         visualizer.score(x_test, y_test)
         visualizer.poof(outpath="{}/naive-classification.png".format(csv_str))
+
+        _, ax = plt.subplots()
+        visualizer = ClassificationReport(
+            MLPClassifier(hidden_layer_sizes=1, solver='sgd', learning_rate='adaptive', activation='logistic', alpha=1)
+        )
+        visualizer.fit(x_train, y_train)
+        visualizer.score(x_test, y_test)
+        visualizer.poof(outpath="{}/worst-classification.png".format(csv_str))
 

@@ -12,8 +12,6 @@ Datasets used are
 - https://archive.ics.uci.edu/ml/datasets/mushroom
 - https://archive.ics.uci.edu/ml/datasets/car+evaluation
 
-# Paper
-https://docs.google.com/document/d/1sHs7pN5LipVjyM3yq5fb_pmNY8Jq6xsB8xxHljjV4n8/edit
 
 ## Setup
 

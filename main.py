@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
     print('{}---------------------->{}'.format(args.dataset, args.strategy))
     CLASSIFIERS[strategy](**vars(args)).run()
-    
+
     args.dataset = '{}-slim'.format(args.dataset)
     path = './results/{}/{}'.format(args.dataset, strategy)
     args.attributes, args.classifications = load_data(args.dataset)

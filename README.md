@@ -59,5 +59,5 @@ strategies:
 To run the car problem with a decision tree
 
 ```
-python main.py -d cars tree
+python main.py -d car tree
 ```
